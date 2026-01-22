@@ -10,7 +10,7 @@ sourceCompatibility = '17'
 targetCompatibility = '17'
 
 mainClassName = 'edu.mcw.rgd.expression.processor.ExpressionObservationProcessor'
-String myAppName="exp-data-json-generator"
+String myAppName="expression-data-json-generator"
 
 // Set the JAR file base name
 project.archivesBaseName = myAppName
