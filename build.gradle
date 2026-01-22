@@ -10,7 +10,7 @@ sourceCompatibility = '17'
 targetCompatibility = '17'
 
 mainClassName = 'edu.mcw.rgd.expression.processor.ExpressionObservationProcessor'
-
+String myAppName="expression-data-json-generator"
 repositories {
     mavenCentral()
 }
@@ -59,7 +59,12 @@ jar {
         )
     }
 }
-
+distributions {
+    main {
+        //baseName = myAppName
+        distributionBaseName = myAppName
+    }
+}
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
