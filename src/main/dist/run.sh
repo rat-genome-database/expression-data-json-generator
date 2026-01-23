@@ -35,7 +35,7 @@ echo "Threads: $THREADS"
 
 java -Dspring.config=$APPDIR/../properties/default_db2.xml \
     -Dlog4j.configurationFile=file://$APPDIR/resources/log4j2.xml \
-    -jar lib/${APPNAME}.jar \
+    -jar lib/${APPNAME}-1.0.0.jar \
     --output $OUTPUT_DIR \
     --threads $THREADS \
     2>&1 | tee run.log
