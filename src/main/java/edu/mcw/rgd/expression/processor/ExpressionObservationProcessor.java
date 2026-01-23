@@ -114,6 +114,9 @@ public class ExpressionObservationProcessor {
         // Fetch all studies from database
         log.info("Fetching expression studies from database...");
         List<Study> studies = geneExpressionDAO.getGeneExpressionStudies();
+//        List<Study> studies=new ArrayList<>();
+//        Study stud=geneExpressionDAO.getStudy(3673);
+//        studies.add(stud);
         log.info("Found " + studies.size() + " studies to process");
 
         if (studies.isEmpty()) {
@@ -219,6 +222,8 @@ public class ExpressionObservationProcessor {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         File file = new File(outputFile);
+        int documentCount = 0;
+
         try (JsonGenerator generator = mapper.getFactory().createGenerator(file, JsonEncoding.UTF8)) {
 
             generator.writeStartArray();
@@ -229,20 +234,28 @@ public class ExpressionObservationProcessor {
                 } catch (Exception e) {
                     throw new RuntimeException("Failed to get expression values for batch", e);
                 }
-
                 for (GeneExpression expression : objects) {
                     try {
                         ExpressionObservationDocument document = createDocument(expression);
                         mapper.writeValue(generator, document);
+                        documentCount++;
                     } catch (Exception e) {
                         log.warn("Failed to process expression record: " + e.getMessage());
                     }
                 }
+
             }
             generator.writeEndArray();
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to write JSON file: " + outputFile, e);
+        }
+
+        // Delete the file if no documents were written (empty content or just "[]")
+        if (documentCount == 0) {
+            if (file.exists() && file.delete()) {
+                log.info("Deleted empty output file: " + outputFile);
+            }
         }
     }
 
