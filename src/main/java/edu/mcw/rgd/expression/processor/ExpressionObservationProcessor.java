@@ -161,7 +161,9 @@ public class ExpressionObservationProcessor {
      */
     public void processStudy(Study study) throws Exception {
         int studyId = study.getId();
-        String outputFile = Paths.get(outputDirectory, "expression_observations_" + studyId + ".json").toString();
+
+        String geoId=study.getGeoSeriesAcc();
+        String outputFile = Paths.get(outputDirectory, "expression_observations_" + studyId +"_"+geoId+ ".json").toString();
 
         log.debug("Processing study " + studyId + " -> " + outputFile);
 
