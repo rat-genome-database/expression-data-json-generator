@@ -163,7 +163,7 @@ public class ExpressionObservationProcessor {
         int studyId = study.getId();
 
         String geoId=study.getGeoSeriesAcc();
-        String outputFile = Paths.get(outputDirectory, "expression_observations_" + studyId +"_"+geoId+ ".json").toString();
+        String outputFile = Paths.get(outputDirectory, "expression_observations_" + studyId + ".json").toString();
 
         log.debug("Processing study " + studyId + " -> " + outputFile);
 
